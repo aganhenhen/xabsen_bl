@@ -16,14 +16,14 @@ export class AuthService {
     if (!isMatch) {
       throw new UnauthorizedException('Username atau password salah');
     }
-    const payload = { sub: user.id, username: user.username };
+    const payload = { sub: user.id, username: user.username, role: user.role };
     return {
       access_token: await this.jwtService.signAsync(payload),
       user: {
         username: user.username,
         fullName: user.fullName,
-        position: user.position
-
+        position: user.position,
+        role: user.role
       }
     };
   }

@@ -41,9 +41,9 @@ export class Attendance {
     @Column({ name: 'check_out_addr', nullable: true })
     check_out_addr: string;
 
-    @Column({ nullable: true })
+    @Column({ type: 'text', nullable: true })
     check_in_img: string;
 
-    @Column({ nullable: true })
+    @Column({ type: 'text', nullable: true })
     check_out_img: string;
 }

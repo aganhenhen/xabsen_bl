@@ -8,10 +8,9 @@ export class AttendanceController {
   constructor(private readonly attendanceService: AttendanceService) { }
 
   @Get('status')
-  getStatus(@Request() req) {
-    return this.attendanceService.getStatus(req.user.sub);
+  getStatus(@Request() req, @Query('date') date?: string) {
+    return this.attendanceService.getStatus(req.user.sub, date);
   }
-
   @Post('press-button')
   pressButton(@Request() req, @Body() data: any) {
     return this.attendanceService.toggleAttendance(req.user.sub, data);

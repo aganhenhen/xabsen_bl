@@ -27,4 +27,8 @@ export class User {
 
   @CreateDateColumn()
   createdAt: Date;
+
+  @Column({ default: 'STAFF' })
+  role: string;
+
 }

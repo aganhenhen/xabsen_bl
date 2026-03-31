@@ -5,7 +5,7 @@ import * as Minio from 'minio';
 export class MinioService {
   // Inisialisasi koneksi ke MinIO
   private readonly minioClient = new Minio.Client({
-    endPoint: 'localhost',
+    endPoint: 'aganhenhen.id',
     port: 9100, // Port API yang kamu buat di Docker
     useSSL: false,
     accessKey: 'admin',
@@ -31,7 +31,7 @@ export class MinioService {
       );
 
       // 3. Return URL agar bisa diakses React
-      return `http://localhost:9100/${this.bucketName}/${fileName}`;
+      return `http://aganhenhen.id:9100/${this.bucketName}/${fileName}`;
     } catch (error) {
       console.error('MinIO Upload Error:', error);
       throw new InternalServerErrorException('Gagal upload foto ke storage');
