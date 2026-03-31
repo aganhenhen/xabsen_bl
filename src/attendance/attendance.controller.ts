@@ -37,5 +37,17 @@ export class AttendanceController {
     const m = month ? parseInt(month) : new Date().getMonth() + 1;
     return this.attendanceService.getAllReport(y, m);
   }
+
+  @Post('history-by-user')
+  async getHistoryByUser(@Body() body: { username: string; year: number; month: number }) {
+    // Kalau year/month tidak dikirim di body, kita kasih default hari ini
+    const payload = {
+      username: body.username,
+      year: body.year || new Date().getFullYear(),
+      month: body.month || new Date().getMonth() + 1,
+    };
+
+    return this.attendanceService.getHistoryByUsername(payload);
+  }
 }
 

@@ -6,16 +6,13 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
-import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(private jwtService: JwtService) {}
-  canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
-    throw new Error('Method not implemented.');
-  }
 
-  async activate(context: ExecutionContext): Promise<boolean> {
+  // Pastikan namanya 'canActivate', bukan 'activate'
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
 
@@ -25,14 +22,15 @@ export class AuthGuard implements CanActivate {
 
     try {
       const payload = await this.jwtService.verifyAsync(token, {
-        secret: 'HIDUPJOKOWI',
+        secret: 'HIDUPJOKOWI', // Harus sama dengan di AuthModule
       });
       
       request['user'] = payload;
     } catch {
       throw new UnauthorizedException('Token tidak valid atau sudah expired');
     }
-    return true;
+    
+    return true; // Izinkan akses jika semua OK
   }
 
   private extractTokenFromHeader(request: Request): string | undefined {

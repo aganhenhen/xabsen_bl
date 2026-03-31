@@ -2,16 +2,16 @@ import { Controller, Post, Body, Get, Patch, Param, Delete, UseGuards } from '@n
 import { UsersService } from './users.service';
 import { AuthGuard } from '../auth/auth/auth.guard';
 
+@UseGuards(AuthGuard)
 @Controller('users') // Rute utama: /users
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
-  @UseGuards(AuthGuard)
   @Post('register') // Rute: /auth/register
   async register(@Body() userData: any) {
     return this.usersService.register(userData);
   }
-
+  
   @Get()
   findAll() {
     return this.usersService.findAll();
