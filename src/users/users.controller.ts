@@ -1,0 +1,33 @@
+import { Controller, Post, Body, Get, Patch, Param, Delete } from '@nestjs/common';
+import { UsersService } from './users.service';
+
+@Controller('auth') // Rute utama: /auth
+export class UsersController {
+  constructor(private readonly usersService: UsersService) { }
+
+  @Post('register') // Rute: /auth/register
+  async register(@Body() userData: any) {
+    return this.usersService.register(userData);
+  }
+
+  @Get()
+  findAll() {
+    return this.usersService.findAll();
+  }
+
+  @Post('detail')
+  async findOneByPost(@Body() body: { username: string }) {
+    return this.usersService.findOne(body.username);
+  }
+  
+  @Patch(':username')
+  update(@Param('username') username: string, @Body() updateData: any) {
+    return this.usersService.update(username, updateData);
+  }
+
+  @Delete(':username')
+  remove(@Param('username') username: string) {
+    return this.usersService.remove(username);
+  }
+
+}
