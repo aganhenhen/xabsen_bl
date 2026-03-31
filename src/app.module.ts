@@ -3,6 +3,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './auth/auth.module';
+import { AuthController } from './auth/auth.controller';
+import { AttendanceModule } from './attendance/attendance.module';
 
 @Module({
   imports: [
@@ -17,8 +20,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       synchronize: true, // disable in production
     }),
     UsersModule,
+    AuthModule,
+    AttendanceModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController,AuthController],
   providers: [AppService],
 })
 export class AppModule {}
